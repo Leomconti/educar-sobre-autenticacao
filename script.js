@@ -8,25 +8,32 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("life3"),
   ];
 
-  const passwords = [
-    "123456",
-    "password",
-    "123456789",
-    "12345678",
-    "12345",
-    "1234567",
-    "admin",
-    "1234",
-    "letmein",
-    "qwerty",
-    "XK#GT!2C$N#PLBUS",
-  ];
-
   let score = 0;
   let lives = 3;
 
+  function generateRandomPassword() {
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    const length = Math.floor(Math.random() * 10) + 8; // Password length between 8 and 18
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+  }
+
+  function evaluatePassword(password) {
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (password.length >= 12) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^a-zA-Z0-9]/.test(password)) strength++;
+    return strength;
+  }
+
   function spawnPassword() {
-    const passwordText = passwords[Math.floor(Math.random() * passwords.length)];
+    const passwordText = generateRandomPassword();
     const passwordElement = document.createElement("div");
     passwordElement.className = "password";
     passwordElement.innerText = passwordText;
@@ -34,8 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     passwordElement.style.left = `${Math.random() * 750}px`;
 
     passwordElement.addEventListener("click", () => {
-      if (passwordText === "XK#GT!2C$N#PLBUS") {
-        score += 100;
+      const passwordStrength = evaluatePassword(passwordText);
+      if (passwordStrength >= 4) {
+        score += passwordStrength * 10;
       } else {
         lives--;
         livesElements[3 - lives - 1].style.color = "grey";
@@ -53,5 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
     passwordsContainer.appendChild(passwordElement);
   }
 
+  function updatePasswordsSafety() {
+    const passwords = document.querySelectorAll(".password");
+    passwords.forEach((passwordElement) => {
+      const passwordText = passwordElement.innerText;
+      const strength = evaluatePassword(passwordText);
+      passwordElement.style.backgroundColor = `rgba(0, 255, 0, ${strength / 6})`;
+    });
+  }
+
   setInterval(spawnPassword, 1000);
+  setInterval(updatePasswordsSafety, 1000);
 });
