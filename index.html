@@ -1,21 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TESTES GAME AUTENTICACAO</title>
+    <title>Jogo de Autenticação</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div id="game-container">
-      <div id="score">0000</div>
-      <div id="lives">
-        <span id="life1">♥️</span>
-        <span id="life2">♥</span>
-        <span id="life3">♥</span>
+      <div id="header">
+        <div id="score-container">
+          <span id="score">0000</span>
+        </div>
+        <div id="timer">
+          <span id="time-left">60</span>
+        </div>
+        <div id="progress-bar">
+          <div id="progress"></div>
+        </div>
       </div>
-      <div id="passwords-container"></div>
+      <div id="password-container"></div>
+      <div id="powers">
+        <div class="power" id="a2f">
+          <span class="power-key">A</span>
+          <span class="info-icon">?</span>
+          <div class="tooltip">Autenticação de dois fatores (A2F)</div>
+        </div>
+        <div class="power" id="password-manager">
+          <span class="power-key">S</span>
+          <span class="info-icon">?</span>
+          <div class="tooltip">Gerenciador de Senhas</div>
+        </div>
+        <div class="power" id="biometrics">
+          <span class="power-key">D</span>
+          <span class="info-icon">?</span>
+          <div class="tooltip">Biometria</div>
+        </div>
+      </div>
     </div>
-    <script src="script.js"></script>
+    <div id="power-info" class="hidden">
+      <h2>Informações do Poder</h2>
+      <p id="power-description">
+        <!-- Add dinamicamente no backend baseado nos poderes-->
+      </p>
+      <button id="close-info">×</button>
+    </div>
+    <div id="result" class="hidden">
+      <h2>Fim de Jogo</h2>
+      <p>Pontuação final: <span id="final-score"></span></p>
+      <div id="power-usage"></div>
+      <div id="password-summary"></div>
+      <button id="restart">Jogar Novamente</button>
+    </div>
+    <script src="game.js"></script>
   </body>
 </html>
