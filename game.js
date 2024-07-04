@@ -36,8 +36,35 @@ const powerUps = {
 // 3 - letra maiúscula e minúscula (x => bom)
 // 4 - caracteres especiais (x => bom)
 // 5 - forte ou fraca (x => forte)
-const weakPasswords = ["__x___123456", "______password"];
-const strongPasswords = ["x_xxxxP@ssw0rd123!", "x_xxxxStr0ngP@ss!"];
+const weakPasswords = [
+  "__x___123456",
+  "______senha",
+  "______qwerty",
+  "______admin",
+  "__x___Fofinho",
+  "______rex1234",
+  "__x_x_12345@",
+  "______abacaxi",
+  "__x___111111",
+  "__x___abc123",
+  "__x_x_!te@amo#123",
+  "_x_x__Abacaxi123",
+];
+
+const strongPasswords = [
+  "x_xxxxS3nh@L898!",
+  "xxxxxxF0rt3S3nh@!",
+  "xxxxxxC0mpl3x#S3nh@",
+  "xxxxxxAQKBJAKL987261!",
+  "xxxxxxUn1c@S3nh@123",
+  "xxxxxxRex@876#Banana",
+  "xxxxxxB@rk1n2023!",
+  "xxxxxxM@x1mus&G@t0",
+  "xxxxxxR3x0ABC@0!",
+  "xxxxxxC@0F0f0#99",
+  "_xxxxxAn1v3rs@r10!",
+  "xxxxxxC0mpr1m3nt0s2023",
+];
 
 let game = null;
 
@@ -331,24 +358,19 @@ function getPasswordFeatures(password) {
   const p = password.substring(0, 4);
 
   // aleatoriedade
-  if (p[0] === "x") features.push("Alta Aleatoriedade");
-  else features.push("Baixa Aleatoriedade");
+  features.push(p[0] === "x" ? "Alta Aleatoriedade" : "Baixa Aleatoriedade");
 
   // tamanho
-  if (p[1] === "x") features.push("Longa");
-  else features.push("Curta");
+  features.push(p[1] === "x" ? "Longa" : "Curta");
 
   // números
-  if (p[2] === "x") features.push("Contém Números");
-  else features.push("Não Contém Números");
+  features.push(p[2] === "x" ? "Contém Números" : "Não Contém Números");
 
   // letra maiúscula e minúscula
-  if (p[3] === "x") features.push("Letras em Caixa Baixa e Alta");
-  else features.push("Não tem Letras em Caixa Alta e Baixa");
+  features.push(p[3] === "x" ? "Letras em Caixa Baixa e Alta" : "Não tem Letras em Caixa Alta e Baixa");
 
   // caracteres especiais
-  if (p[4] === "x") features.push("Possui Caracteres Especiais");
-  else features.push("Não Possui Caracteres Especiais");
+  features.push(p[4] === "x" ? "Possui Caracteres Especiais" : "Não Possui Caracteres Especiais");
 
   return features;
 }
