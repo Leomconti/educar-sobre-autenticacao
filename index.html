@@ -5,53 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jogo de Autenticação</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="game.js"></script>
   </head>
+
   <body>
-    <div id="game-container">
-      <div id="header">
-        <div id="score-container">
-          <span id="score">0000</span>
+    <span class="hidden" id="alert"></span>
+
+    <header>
+      <div class="score-container">
+        <span id="score">0000</span>
+      </div>
+      <div class="timer-container">
+        <span id="timer">45</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progress"></div>
+      </div>
+    </header>
+
+    <main>
+      <section id="game-container"></section>
+    </main>
+
+    <footer>
+      <div class="powers-container">
+        <div id="power-a2f" class="power">
+          <span class="key">A</span>
+          <span class="power-text">A2F</span>
+          <span class="helper">?</span>
+          <div class="tooltip">
+            <span class="tooltip-title">Autenticação de Dois Fatores (A2F)</span>
+            <span class="tooltip-desc"
+              >Autenticação de dois fatores (A2F) é um método de autenticação que utiliza dois fatores para verificar a
+              identidade do usuário, como uma senha e um código enviado por SMS.</span
+            >
+            <span class="tooltip-power">*Não pune o jogador por até 3 cliques em senhas erradas</span>
+          </div>
         </div>
-        <div id="timer">
-          <span id="time-left">60</span>
+
+        <div id="power-gs" class="power">
+          <span class="key">S</span>
+          <span class="power-text">GS</span>
+          <span class="helper">?</span>
+          <div class="tooltip">
+            <span class="tooltip-title">Gerenciador de Senhas</span>
+            <span class="tooltip-desc"
+              >Gerenciador de Senhas ajuda a criar, armazenar e gerenciar senhas fortes e únicas para suas contas
+              online, garantindo maior segurança.</span
+            >
+            <span class="tooltip-power"
+              >*Permite que o jogador clique em qualquer senha por 4 segundos sem sofrer penalidade</span
+            >
+          </div>
         </div>
-        <div id="progress-bar">
-          <div id="progress"></div>
+
+        <div id="power-bio" class="power">
+          <span class="key">D</span>
+          <span class="power-text">BIO</span>
+          <span class="helper">?</span>
+          <div class="tooltip">
+            <span class="tooltip-title">Biometria</span>
+            <span class="tooltip-desc"
+              >Biometria utiliza características físicas únicas, como impressões digitais ou reconhecimento facial, para
+              verificar a identidade do usuário.</span
+            >
+            <span class="tooltip-power">*blabl</span>
+          </div>
         </div>
       </div>
-      <div id="password-container"></div>
-      <div id="powers">
-        <div class="power" id="a2f">
-          <span class="power-key">A</span>
-          <span class="info-icon">?</span>
-          <div class="tooltip">Autenticação de dois fatores (A2F)</div>
+    </footer>
+
+    <div id="splash-screen">
+      <div class="splash-screen-container">
+        <div class="title-container">
+          <span class="title">AUTENTICAÇÃO</span>
         </div>
-        <div class="power" id="password-manager">
-          <span class="power-key">S</span>
-          <span class="info-icon">?</span>
-          <div class="tooltip">Gerenciador de Senhas</div>
+        <button id="play">JOGAR</button>
+      </div>
+    </div>
+
+    <div id="results" class="result-container">
+      <div class="result-card">
+        <span id="result-close">X</span>
+        <div class="result-header">
+          <span>RESULTADO</span>
+          <span id="result-score">0000</span>
         </div>
-        <div class="power" id="biometrics">
-          <span class="power-key">D</span>
-          <span class="info-icon">?</span>
-          <div class="tooltip">Biometria</div>
+        <div class="result-powerup">
+          <span>Você usou</span>
+          <div class="result-powerup-row">
+            <div class="powerup-card">
+              <span id="a2f-powerup-usage" class="powerup-usage"></span>
+              <span class="powerup-title">Autenticação de Dois Fatores (A2F)</span>
+              <span class="powerup-description"
+                >Autenticação de dois fatores (A2F) é um método de autenticação que utiliza dois fatores para verificar
+                a identidade do usuário, como uma senha e um código enviado por SMS.</span
+              >
+            </div>
+            <div class="powerup-card">
+              <span id="gs-powerup-usage" class="powerup-usage"></span>
+              <span class="powerup-title">Gerenciador de Senhas</span>
+              <span class="powerup-description"
+                >Gerenciador de Senhas ajuda a criar, armazenar e gerenciar senhas fortes e únicas para suas contas
+                online, garantindo maior segurança.</span
+              >
+            </div>
+            <div class="powerup-card">
+              <span id="bio-powerup-usage" class="powerup-usage"></span>
+              <span class="powerup-title">Biometria</span>
+              <span class="powerup-description"
+                >Biometria utiliza características físicas únicas, como impressões digitais ou reconhecimento facial,
+                para verificar a identidade do usuário.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="result-passwords">
+          <div class="result-lane-titles">
+            <span>Você acertou</span>
+            <span>Você errou</span>
+          </div>
+          <div class="result-lanes">
+            <div id="result-right-lane"></div>
+            <div id="result-wrong-lane"></div>
+          </div>
         </div>
       </div>
     </div>
-    <div id="power-info" class="hidden">
-      <h2>Informações do Poder</h2>
-      <p id="power-description">
-        <!-- Add dinamicamente no backend baseado nos poderes-->
-      </p>
-      <button id="close-info">×</button>
-    </div>
-    <div id="result" class="hidden">
-      <h2>Fim de Jogo</h2>
-      <p>Pontuação final: <span id="final-score"></span></p>
-      <div id="power-usage"></div>
-      <div id="password-summary"></div>
-      <button id="restart">Jogar Novamente</button>
-    </div>
-    <script src="game.js"></script>
   </body>
 </html>
