@@ -1,3 +1,3 @@
-## Ja ta melhor
+# Check it out in github pages
 
-### So abrir o index.html com live server no vscode, parada eh raiz
+https://leomconti.github.io/educar-sobre-autenticacao/
